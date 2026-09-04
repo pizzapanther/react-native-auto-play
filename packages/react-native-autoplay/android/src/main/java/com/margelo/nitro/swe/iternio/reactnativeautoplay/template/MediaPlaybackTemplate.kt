@@ -17,7 +17,7 @@ class MediaPlaybackTemplate(context: CarContext, config: MediaPlaybackTemplateCo
     override val autoDismissMs: Double?
         get() = config.autoDismissMs
 
-    init {
+    private fun registerMediaSession() {
         val session = sessions.getOrPut(templateId) {
             MediaSessionCompat(context, "ReactNativeAutoPlay:$templateId").apply {
                 isActive = true
@@ -27,6 +27,10 @@ class MediaPlaybackTemplate(context: CarContext, config: MediaPlaybackTemplateCo
     }
 
     override fun parse(): Template {
+        // `MediaSessionCompat` registers a lifecycle observer, which Car App Library requires
+        // to happen on the main thread. `parse` is invoked by AndroidAutoScreen on that thread.
+        registerMediaSession()
+
         return CarMediaPlaybackTemplate.Builder().apply {
             config.headerActions?.let { actions ->
                 setHeader(Parser.parseHeader(context, null, actions))

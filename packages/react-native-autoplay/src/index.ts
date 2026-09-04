@@ -46,6 +46,7 @@ export * from './templates/MapTemplate';
 export * from './templates/MessageTemplate';
 export * from './templates/SearchTemplate';
 export * from './templates/SignInTemplate';
+export * from './templates/TabTemplate';
 export * from './templates/Template';
 export * from './types/Button';
 export * from './types/Event';

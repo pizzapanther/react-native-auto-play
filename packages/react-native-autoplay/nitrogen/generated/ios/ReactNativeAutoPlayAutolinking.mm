@@ -18,6 +18,7 @@
 #include "HybridMapTemplateSpecSwift.hpp"
 #include "HybridMessageTemplateSpecSwift.hpp"
 #include "HybridSearchTemplateSpecSwift.hpp"
+#include "HybridTabTemplateSpecSwift.hpp"
 #include "HybridCarPlayDashboardSpecSwift.hpp"
 #include "HybridClusterSpecSwift.hpp"
 
@@ -83,6 +84,13 @@
     "SearchTemplate",
     []() -> std::shared_ptr<HybridObject> {
       std::shared_ptr<HybridSearchTemplateSpec> hybridObject = ReactNativeAutoPlay::ReactNativeAutoPlayAutolinking::createSearchTemplate();
+      return hybridObject;
+    }
+  );
+  HybridObjectRegistry::registerHybridObjectConstructor(
+    "TabTemplate",
+    []() -> std::shared_ptr<HybridObject> {
+      std::shared_ptr<HybridTabTemplateSpec> hybridObject = ReactNativeAutoPlay::ReactNativeAutoPlayAutolinking::createTabTemplate();
       return hybridObject;
     }
   );

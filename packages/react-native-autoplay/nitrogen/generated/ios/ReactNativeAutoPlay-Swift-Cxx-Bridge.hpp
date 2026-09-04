@@ -50,6 +50,8 @@ namespace margelo::nitro::swe::iternio::reactnativeautoplay { class HybridMapTem
 namespace margelo::nitro::swe::iternio::reactnativeautoplay { class HybridMessageTemplateSpec; }
 // Forward declaration of `HybridSearchTemplateSpec` to properly resolve imports.
 namespace margelo::nitro::swe::iternio::reactnativeautoplay { class HybridSearchTemplateSpec; }
+// Forward declaration of `HybridTabTemplateSpec` to properly resolve imports.
+namespace margelo::nitro::swe::iternio::reactnativeautoplay { class HybridTabTemplateSpec; }
 // Forward declaration of `HybridVoiceSpec` to properly resolve imports.
 namespace margelo::nitro::swe::iternio::reactnativeautoplay { class HybridVoiceSpec; }
 // Forward declaration of `ImageLane` to properly resolve imports.
@@ -102,6 +104,8 @@ namespace margelo::nitro::swe::iternio::reactnativeautoplay { struct NitroRow; }
 namespace margelo::nitro::swe::iternio::reactnativeautoplay { enum class NitroSectionType; }
 // Forward declaration of `NitroSection` to properly resolve imports.
 namespace margelo::nitro::swe::iternio::reactnativeautoplay { struct NitroSection; }
+// Forward declaration of `NitroTab` to properly resolve imports.
+namespace margelo::nitro::swe::iternio::reactnativeautoplay { struct NitroTab; }
 // Forward declaration of `OffRampType` to properly resolve imports.
 namespace margelo::nitro::swe::iternio::reactnativeautoplay { enum class OffRampType; }
 // Forward declaration of `OnRampType` to properly resolve imports.
@@ -160,6 +164,8 @@ namespace ReactNativeAutoPlay { class HybridMapTemplateSpec_cxx; }
 namespace ReactNativeAutoPlay { class HybridMessageTemplateSpec_cxx; }
 // Forward declaration of `HybridSearchTemplateSpec_cxx` to properly resolve imports.
 namespace ReactNativeAutoPlay { class HybridSearchTemplateSpec_cxx; }
+// Forward declaration of `HybridTabTemplateSpec_cxx` to properly resolve imports.
+namespace ReactNativeAutoPlay { class HybridTabTemplateSpec_cxx; }
 // Forward declaration of `HybridVoiceSpec_cxx` to properly resolve imports.
 namespace ReactNativeAutoPlay { class HybridVoiceSpec_cxx; }
 
@@ -184,6 +190,7 @@ namespace ReactNativeAutoPlay { class HybridVoiceSpec_cxx; }
 #include "HybridMapTemplateSpec.hpp"
 #include "HybridMessageTemplateSpec.hpp"
 #include "HybridSearchTemplateSpec.hpp"
+#include "HybridTabTemplateSpec.hpp"
 #include "HybridVoiceSpec.hpp"
 #include "ImageLane.hpp"
 #include "KeepType.hpp"
@@ -210,6 +217,7 @@ namespace ReactNativeAutoPlay { class HybridVoiceSpec_cxx; }
 #include "NitroRow.hpp"
 #include "NitroSection.hpp"
 #include "NitroSectionType.hpp"
+#include "NitroTab.hpp"
 #include "OffRampType.hpp"
 #include "OnRampType.hpp"
 #include "Point.hpp"
@@ -1620,6 +1628,44 @@ namespace margelo::nitro::swe::iternio::reactnativeautoplay::bridge::swift {
   // pragma MARK: std::weak_ptr<HybridSearchTemplateSpec>
   using std__weak_ptr_HybridSearchTemplateSpec_ = std::weak_ptr<HybridSearchTemplateSpec>;
   inline std__weak_ptr_HybridSearchTemplateSpec_ weakify_std__shared_ptr_HybridSearchTemplateSpec_(const std::shared_ptr<HybridSearchTemplateSpec>& strong) noexcept { return strong; }
+  
+  // pragma MARK: std::vector<NitroTab>
+  /**
+   * Specialized version of `std::vector<NitroTab>`.
+   */
+  using std__vector_NitroTab_ = std::vector<NitroTab>;
+  inline std::vector<NitroTab> create_std__vector_NitroTab_(size_t size) noexcept {
+    std::vector<NitroTab> vector;
+    vector.reserve(size);
+    return vector;
+  }
+  
+  // pragma MARK: std::optional<std::function<void(const std::string& /* templateId */)>>
+  /**
+   * Specialized version of `std::optional<std::function<void(const std::string& / * templateId * /)>>`.
+   */
+  using std__optional_std__function_void_const_std__string_____templateId______ = std::optional<std::function<void(const std::string& /* templateId */)>>;
+  inline std::optional<std::function<void(const std::string& /* templateId */)>> create_std__optional_std__function_void_const_std__string_____templateId______(const std::function<void(const std::string& /* templateId */)>& value) noexcept {
+    return std::optional<std::function<void(const std::string& /* templateId */)>>(value);
+  }
+  inline bool has_value_std__optional_std__function_void_const_std__string_____templateId______(const std::optional<std::function<void(const std::string& /* templateId */)>>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::function<void(const std::string& /* templateId */)> get_std__optional_std__function_void_const_std__string_____templateId______(const std::optional<std::function<void(const std::string& /* templateId */)>>& optional) noexcept {
+    return optional.value();
+  }
+  
+  // pragma MARK: std::shared_ptr<HybridTabTemplateSpec>
+  /**
+   * Specialized version of `std::shared_ptr<HybridTabTemplateSpec>`.
+   */
+  using std__shared_ptr_HybridTabTemplateSpec_ = std::shared_ptr<HybridTabTemplateSpec>;
+  std::shared_ptr<HybridTabTemplateSpec> create_std__shared_ptr_HybridTabTemplateSpec_(void* NON_NULL swiftUnsafePointer) noexcept;
+  void* NON_NULL get_std__shared_ptr_HybridTabTemplateSpec_(std__shared_ptr_HybridTabTemplateSpec_ cppType);
+  
+  // pragma MARK: std::weak_ptr<HybridTabTemplateSpec>
+  using std__weak_ptr_HybridTabTemplateSpec_ = std::weak_ptr<HybridTabTemplateSpec>;
+  inline std__weak_ptr_HybridTabTemplateSpec_ weakify_std__shared_ptr_HybridTabTemplateSpec_(const std::shared_ptr<HybridTabTemplateSpec>& strong) noexcept { return strong; }
   
   // pragma MARK: std::shared_ptr<Promise<bool>>
   /**

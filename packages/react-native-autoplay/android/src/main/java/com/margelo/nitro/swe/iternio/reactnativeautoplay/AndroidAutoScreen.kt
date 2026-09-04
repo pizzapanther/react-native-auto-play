@@ -18,6 +18,7 @@ import com.margelo.nitro.swe.iternio.reactnativeautoplay.template.MapTemplate
 import com.margelo.nitro.swe.iternio.reactnativeautoplay.template.MessageTemplate
 import com.margelo.nitro.swe.iternio.reactnativeautoplay.template.SearchTemplate
 import com.margelo.nitro.swe.iternio.reactnativeautoplay.template.SignInTemplate
+import com.margelo.nitro.swe.iternio.reactnativeautoplay.template.TabTemplate
 
 class AndroidAutoScreen(
     carContext: CarContext, private val moduleName: String, private var template: Template
@@ -70,6 +71,7 @@ class AndroidAutoScreen(
                     is SearchTemplateConfig -> config.headerActions?.find { it.type == NitroActionType.BACK }
                     is InformationTemplateConfig -> config.headerActions?.find { it.type == NitroActionType.BACK }
                     is SignInTemplateConfig -> config.headerActions?.find { it.type == NitroActionType.BACK }
+                    is TabTemplateConfig -> null
                     else -> null
                 }
 
@@ -96,6 +98,7 @@ class AndroidAutoScreen(
             is SearchTemplateConfig -> SearchTemplate(carContext, config)
             is InformationTemplateConfig -> InformationTemplate(carContext, config)
             is SignInTemplateConfig -> SignInTemplate(carContext, config)
+            is TabTemplateConfig -> TabTemplate(carContext, config)
             else -> null
         }?.let {
             AndroidAutoTemplate.setTemplate(moduleName, it)
@@ -109,6 +112,11 @@ class AndroidAutoScreen(
                 invalidate()
             }
         }
+    }
+
+    fun updateTemplate(template: Template) {
+        this.template = template
+        UiThreadUtil.runOnUiThread { invalidate() }
     }
 
     override fun onGetTemplate(): Template {

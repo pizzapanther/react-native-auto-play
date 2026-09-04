@@ -48,6 +48,7 @@
 #include "JHybridSearchTemplateSpec.hpp"
 #include "JHybridSignInTemplateSpec.hpp"
 #include "JFunc_void_std__optional_std__string__std__optional_GoogleSignInAccount_.hpp"
+#include "JHybridTabTemplateSpec.hpp"
 #include "JHybridVoiceSpec.hpp"
 #include "JFunc_void_VoiceInputChunk.hpp"
 #include <NitroModules/DefaultConstructableObject.hpp>
@@ -156,6 +157,14 @@ struct JHybridSearchTemplateSpecImpl: public jni::JavaClass<JHybridSearchTemplat
     return javaPart->getJHybridSearchTemplateSpec();
   }
 };
+struct JHybridTabTemplateSpecImpl: public jni::JavaClass<JHybridTabTemplateSpecImpl, JHybridTabTemplateSpec::JavaPart> {
+  static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/swe/iternio/reactnativeautoplay/HybridTabTemplate;";
+  static std::shared_ptr<JHybridTabTemplateSpec> create() {
+    static const auto constructorFn = javaClassStatic()->getConstructor<JHybridTabTemplateSpecImpl::javaobject()>();
+    jni::local_ref<JHybridTabTemplateSpec::JavaPart> javaPart = javaClassStatic()->newObject(constructorFn);
+    return javaPart->getJHybridTabTemplateSpec();
+  }
+};
 struct JHybridClusterSpecImpl: public jni::JavaClass<JHybridClusterSpecImpl, JHybridClusterSpec::JavaPart> {
   static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/swe/iternio/reactnativeautoplay/HybridCluster;";
   static std::shared_ptr<JHybridClusterSpec> create() {
@@ -203,6 +212,7 @@ void registerAllNatives() {
   margelo::nitro::swe::iternio::reactnativeautoplay::JHybridSearchTemplateSpec::CxxPart::registerNatives();
   margelo::nitro::swe::iternio::reactnativeautoplay::JHybridSignInTemplateSpec::CxxPart::registerNatives();
   margelo::nitro::swe::iternio::reactnativeautoplay::JFunc_void_std__optional_std__string__std__optional_GoogleSignInAccount__cxx::registerNatives();
+  margelo::nitro::swe::iternio::reactnativeautoplay::JHybridTabTemplateSpec::CxxPart::registerNatives();
   margelo::nitro::swe::iternio::reactnativeautoplay::JHybridVoiceSpec::CxxPart::registerNatives();
   margelo::nitro::swe::iternio::reactnativeautoplay::JFunc_void_VoiceInputChunk_cxx::registerNatives();
 
@@ -277,6 +287,12 @@ void registerAllNatives() {
     "SearchTemplate",
     []() -> std::shared_ptr<HybridObject> {
       return JHybridSearchTemplateSpecImpl::create();
+    }
+  );
+  HybridObjectRegistry::registerHybridObjectConstructor(
+    "TabTemplate",
+    []() -> std::shared_ptr<HybridObject> {
+      return JHybridTabTemplateSpecImpl::create();
     }
   );
   HybridObjectRegistry::registerHybridObjectConstructor(

@@ -108,6 +108,18 @@ public final class ReactNativeAutoPlayAutolinking {
     return HybridSearchTemplate.self is any RecyclableView.Type
   }
   
+  public static func createTabTemplate() -> bridge.std__shared_ptr_HybridTabTemplateSpec_ {
+    let hybridObject = HybridTabTemplate()
+    return { () -> bridge.std__shared_ptr_HybridTabTemplateSpec_ in
+      let __cxxWrapped = hybridObject.getCxxWrapper()
+      return __cxxWrapped.getCxxPart()
+    }()
+  }
+  
+  public static func isTabTemplateRecyclable() -> Bool {
+    return HybridTabTemplate.self is any RecyclableView.Type
+  }
+  
   public static func createCarPlayDashboard() -> bridge.std__shared_ptr_HybridCarPlayDashboardSpec_ {
     let hybridObject = HybridCarPlayDashboard()
     return { () -> bridge.std__shared_ptr_HybridCarPlayDashboardSpec_ in

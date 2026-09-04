@@ -113,6 +113,16 @@
         "language": "swift"
       }
     },
+    "TabTemplate": {
+      "android": {
+        "implementationClassName": "HybridTabTemplate",
+        "language": "kotlin"
+      },
+      "ios": {
+        "implementationClassName": "HybridTabTemplate",
+        "language": "swift"
+      }
+    },
     "CarPlayDashboard": {
       "ios": {
         "implementationClassName": "HybridCarPlayDashboard",

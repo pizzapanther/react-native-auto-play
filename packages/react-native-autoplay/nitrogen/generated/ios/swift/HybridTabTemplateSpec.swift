@@ -15,6 +15,7 @@ public protocol HybridTabTemplateSpec_protocol: HybridObject {
   // Methods
   func createTabTemplate(config: TabTemplateConfig) throws -> Void
   func selectTab(templateId: String, index: Double) throws -> Promise<Void>
+  func updateTab(templateId: String, index: Double, newTemplateId: String) throws -> Promise<Void>
 }
 
 public extension HybridTabTemplateSpec_protocol {

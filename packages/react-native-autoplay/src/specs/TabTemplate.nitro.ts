@@ -7,4 +7,5 @@ interface TabTemplateConfig extends NitroTemplateConfig, NitroTabTemplateConfig 
 export interface TabTemplate extends HybridObject<{ android: 'kotlin'; ios: 'swift' }> {
   createTabTemplate(config: TabTemplateConfig): void;
   selectTab(templateId: string, index: number): Promise<void>;
+  updateTab(templateId: string, index: number, newTemplateId: string): Promise<void>;
 }

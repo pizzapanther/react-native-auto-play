@@ -56,6 +56,7 @@ namespace margelo::nitro::swe::iternio::reactnativeautoplay {
     // Methods
     void createTabTemplate(const TabTemplateConfig& config) override;
     std::shared_ptr<Promise<void>> selectTab(const std::string& templateId, double index) override;
+    std::shared_ptr<Promise<void>> updateTab(const std::string& templateId, double index, const std::string& newTemplateId) override;
 
   private:
     jni::global_ref<JHybridTabTemplateSpec::JavaPart> _javaPart;

@@ -98,5 +98,20 @@ namespace margelo::nitro::swe::iternio::reactnativeautoplay {
       return __promise;
     }();
   }
+  std::shared_ptr<Promise<void>> JHybridTabTemplateSpec::updateTab(const std::string& templateId, double index, const std::string& newTemplateId) {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* templateId */, double /* index */, jni::alias_ref<jni::JString> /* newTemplateId */)>("updateTab");
+    auto __result = method(_javaPart, jni::make_jstring(templateId), index, jni::make_jstring(newTemplateId));
+    return [&]() {
+      auto __promise = Promise<void>::create();
+      __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& /* unit */) {
+        __promise->resolve();
+      });
+      __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
+        jni::JniException __jniError(__throwable);
+        __promise->reject(std::make_exception_ptr(__jniError));
+      });
+      return __promise;
+    }();
+  }
 
 } // namespace margelo::nitro::swe::iternio::reactnativeautoplay

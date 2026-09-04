@@ -78,4 +78,18 @@ class TabTemplate(context: CarContext, config: TabTemplateConfig) :
         AndroidAutoScreen.getScreen(templateId)?.updateTemplate(parse())
         config.onTabSelected?.invoke(activeTemplateId)
     }
+
+    fun updateTab(index: Int, newTemplateId: String) {
+        val tabs = config.tabs.copyOf()
+        val replacedTab = tabs[index]
+        val wasActive = replacedTab.templateId == activeTemplateId
+        tabs[index] = replacedTab.copy(templateId = newTemplateId)
+        config = config.copy(tabs = tabs)
+
+        if (wasActive) {
+            activeTemplateId = newTemplateId
+        }
+
+        AndroidAutoScreen.getScreen(templateId)?.updateTemplate(parse())
+    }
 }

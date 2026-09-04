@@ -9,7 +9,7 @@ import UIKit
 class TabTemplate: AutoPlayTemplate, CPTabBarTemplateDelegate {
     let template: CPTabBarTemplate
     var config: TabTemplateConfig
-    private let childTemplates: [AutoPlayTemplate]
+    private var childTemplates: [AutoPlayTemplate]
 
     override var autoDismissMs: Double? {
         return config.autoDismissMs
@@ -84,6 +84,28 @@ class TabTemplate: AutoPlayTemplate, CPTabBarTemplateDelegate {
     @MainActor
     func selectTab(index: Int) {
         template.selectTemplate(at: index)
+    }
+
+    @MainActor
+    func updateTab(index: Int, template newTemplate: AutoPlayTemplate) {
+        let tab = config.tabs[index]
+        let selectedIndex = template.selectedTemplate.flatMap { selectedTemplate in
+            template.templates.firstIndex(of: selectedTemplate)
+        }
+        let carPlayTemplate = newTemplate.getTemplate()
+        let traitCollection = SceneStore.getRootTraitCollection() ?? UITraitCollection.current
+        carPlayTemplate.tabTitle = tab.title
+        carPlayTemplate.tabImage = Self.parseImage(
+            tab.image,
+            traitCollection: traitCollection
+        )
+
+        childTemplates[index] = newTemplate
+        self.template.updateTemplates(childTemplates.map { $0.getTemplate() })
+        if let selectedIndex {
+            self.template.selectTemplate(at: selectedIndex)
+        }
+        newTemplate.invalidate()
     }
 
     private static func parseImage(

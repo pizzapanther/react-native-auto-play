@@ -41,6 +41,7 @@ export type TabTemplateConfig = Omit<NitroTabTemplateConfig, 'tabs' | 'onTabSele
  */
 export class TabTemplate extends Template<TabTemplateConfig, never> {
   private readonly tabCount: number;
+  private readonly tabs: Array<Tab>;
   private _activeIndex = 0;
 
   /** The zero-based index of the currently active tab. */
@@ -60,6 +61,7 @@ export class TabTemplate extends Template<TabTemplateConfig, never> {
     }
 
     this.tabCount = config.tabs.length;
+    this.tabs = [...config.tabs];
 
     const { tabs, onTabSelected, ...rest } = config;
     const nitroTabs = tabs.map(({ title, image, template }) => ({
@@ -73,8 +75,8 @@ export class TabTemplate extends Template<TabTemplateConfig, never> {
       id: this.id,
       tabs: nitroTabs,
       onTabSelected: (templateId) => {
-        const index = tabs.findIndex((candidate) => candidate.template.id === templateId);
-        const selectedTab = tabs[index];
+        const index = this.tabs.findIndex((candidate) => candidate.template.id === templateId);
+        const selectedTab = this.tabs[index];
         if (selectedTab != null) {
           this._activeIndex = index;
           if (onTabSelected != null) {
@@ -99,5 +101,31 @@ export class TabTemplate extends Template<TabTemplateConfig, never> {
 
     await HybridTabTemplate.selectTab(this.id, index);
     this._activeIndex = index;
+  }
+
+  /** Replaces a tab's content template while preserving its title and image. */
+  public async updateTab(index: number, template: Template<unknown, unknown>) {
+    if (!Number.isInteger(index) || index < 0 || index >= this.tabCount) {
+      throw new RangeError(`Tab index ${index} is out of bounds for ${this.tabCount} tabs.`);
+    }
+
+    if (this.tabs[index]?.template.id === template.id) {
+      return;
+    }
+
+    if (
+      this.tabs.some(
+        (candidate, tabIndex) => tabIndex !== index && candidate.template.id === template.id
+      )
+    ) {
+      throw new Error('Each TabTemplate tab must reference a different template.');
+    }
+
+    await HybridTabTemplate.updateTab(this.id, index, template.id);
+
+    const tab = this.tabs[index];
+    if (tab != null) {
+      this.tabs[index] = { ...tab, template };
+    }
   }
 }

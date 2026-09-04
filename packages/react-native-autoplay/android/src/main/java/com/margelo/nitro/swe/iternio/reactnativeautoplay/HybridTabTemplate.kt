@@ -15,4 +15,11 @@ class HybridTabTemplate : HybridTabTemplateSpec() {
     override fun selectTab(templateId: String, index: Double): Promise<Unit> = Promise.async {
         AndroidAutoTemplate.getTemplate<TabTemplate>(templateId).selectTab(index.toInt())
     }
+
+    override fun updateTab(
+        templateId: String, index: Double, newTemplateId: String
+    ): Promise<Unit> = Promise.async {
+        AndroidAutoTemplate.getTemplate<TabTemplate>(templateId)
+            .updateTab(index.toInt(), newTemplateId)
+    }
 }

@@ -16,6 +16,7 @@ namespace margelo::nitro::swe::iternio::reactnativeautoplay {
     registerHybrids(this, [](Prototype& prototype) {
       prototype.registerHybridMethod("createTabTemplate", &HybridTabTemplateSpec::createTabTemplate);
       prototype.registerHybridMethod("selectTab", &HybridTabTemplateSpec::selectTab);
+      prototype.registerHybridMethod("updateTab", &HybridTabTemplateSpec::updateTab);
     });
   }
 

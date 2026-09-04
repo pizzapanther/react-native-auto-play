@@ -23,4 +23,24 @@ class HybridTabTemplate: HybridTabTemplateSpec {
             }
         }
     }
+
+    func updateTab(
+        templateId: String,
+        index: Double,
+        newTemplateId: String
+    ) throws -> Promise<Void> {
+        return Promise.async {
+            try await MainActor.run {
+                try RootModule.withTemplateStore { templateStore in
+                    let newTemplate = try templateStore.getTemplate(
+                        templateId: newTemplateId
+                    )
+                    try RootModule.withAutoPlayTemplate(templateId: templateId) {
+                        (template: TabTemplate) in
+                        template.updateTab(index: Int(index), template: newTemplate)
+                    }
+                }
+            }
+        }
+    }
 }

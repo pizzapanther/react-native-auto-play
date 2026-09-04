@@ -102,6 +102,14 @@ namespace margelo::nitro::swe::iternio::reactnativeautoplay {
       auto __value = std::move(__result.value());
       return __value;
     }
+    inline std::shared_ptr<Promise<void>> updateTab(const std::string& templateId, double index, const std::string& newTemplateId) override {
+      auto __result = _swiftPart.updateTab(templateId, std::forward<decltype(index)>(index), newTemplateId);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
 
   private:
     ReactNativeAutoPlay::HybridTabTemplateSpec_cxx _swiftPart;

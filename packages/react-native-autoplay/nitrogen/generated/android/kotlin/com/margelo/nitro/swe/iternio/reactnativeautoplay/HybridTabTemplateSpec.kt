@@ -36,6 +36,10 @@ abstract class HybridTabTemplateSpec: HybridObject() {
   @DoNotStrip
   @Keep
   abstract fun selectTab(templateId: String, index: Double): Promise<Unit>
+  
+  @DoNotStrip
+  @Keep
+  abstract fun updateTab(templateId: String, index: Double, newTemplateId: String): Promise<Unit>
 
   // Default implementation of `HybridObject.toString()`
   override fun toString(): String {

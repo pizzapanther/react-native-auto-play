@@ -40,6 +40,14 @@ export type TabTemplateConfig = Omit<NitroTabTemplateConfig, 'tabs' | 'onTabSele
  * support header actions; configure headers on its child templates instead.
  */
 export class TabTemplate extends Template<TabTemplateConfig, never> {
+  private readonly tabCount: number;
+  private _activeIndex = 0;
+
+  /** The zero-based index of the currently active tab. */
+  public get activeIndex() {
+    return this._activeIndex;
+  }
+
   constructor(config: TabTemplateConfig) {
     super(config);
 
@@ -50,6 +58,8 @@ export class TabTemplate extends Template<TabTemplateConfig, never> {
     if (new Set(config.tabs.map((tab) => tab.template.id)).size !== config.tabs.length) {
       throw new Error('Each TabTemplate tab must reference a different template.');
     }
+
+    this.tabCount = config.tabs.length;
 
     const { tabs, onTabSelected, ...rest } = config;
     const nitroTabs = tabs.map(({ title, image, template }) => ({
@@ -62,17 +72,32 @@ export class TabTemplate extends Template<TabTemplateConfig, never> {
       ...rest,
       id: this.id,
       tabs: nitroTabs,
-      onTabSelected: onTabSelected
-        ? (templateId) => {
-            const index = tabs.findIndex((candidate) => candidate.template.id === templateId);
-            const selectedTab = tabs[index];
-            if (selectedTab != null) {
-              onTabSelected(selectedTab, index);
-            }
+      onTabSelected: (templateId) => {
+        const index = tabs.findIndex((candidate) => candidate.template.id === templateId);
+        const selectedTab = tabs[index];
+        if (selectedTab != null) {
+          this._activeIndex = index;
+          if (onTabSelected != null) {
+            onTabSelected(selectedTab, index);
           }
-        : undefined,
+        }
+      },
     };
 
     HybridTabTemplate.createTabTemplate(nitroConfig);
+  }
+
+  /** Selects a tab by its zero-based index. */
+  public async selectTab(index: number) {
+    if (!Number.isInteger(index) || index < 0 || index >= this.tabCount) {
+      throw new RangeError(`Tab index ${index} is out of bounds for ${this.tabCount} tabs.`);
+    }
+
+    if (index === this._activeIndex) {
+      return;
+    }
+
+    await HybridTabTemplate.selectTab(this.id, index);
+    this._activeIndex = index;
   }
 }

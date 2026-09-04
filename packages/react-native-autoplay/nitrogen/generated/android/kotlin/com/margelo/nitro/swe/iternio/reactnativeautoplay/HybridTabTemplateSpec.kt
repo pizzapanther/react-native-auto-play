@@ -10,6 +10,7 @@ package com.margelo.nitro.swe.iternio.reactnativeautoplay
 import androidx.annotation.Keep
 import com.facebook.jni.HybridData
 import com.facebook.proguard.annotations.DoNotStrip
+import com.margelo.nitro.core.Promise
 import com.margelo.nitro.core.HybridObject
 
 /**
@@ -31,6 +32,10 @@ abstract class HybridTabTemplateSpec: HybridObject() {
   @DoNotStrip
   @Keep
   abstract fun createTabTemplate(config: TabTemplateConfig): Unit
+  
+  @DoNotStrip
+  @Keep
+  abstract fun selectTab(templateId: String, index: Double): Promise<Unit>
 
   // Default implementation of `HybridObject.toString()`
   override fun toString(): String {

@@ -17,6 +17,8 @@
 namespace margelo::nitro::swe::iternio::reactnativeautoplay { struct TabTemplateConfig; }
 
 #include "TabTemplateConfig.hpp"
+#include <NitroModules/Promise.hpp>
+#include <string>
 
 namespace margelo::nitro::swe::iternio::reactnativeautoplay {
 
@@ -50,6 +52,7 @@ namespace margelo::nitro::swe::iternio::reactnativeautoplay {
     public:
       // Methods
       virtual void createTabTemplate(const TabTemplateConfig& config) = 0;
+      virtual std::shared_ptr<Promise<void>> selectTab(const std::string& templateId, double index) = 0;
 
     protected:
       // Hybrid Setup

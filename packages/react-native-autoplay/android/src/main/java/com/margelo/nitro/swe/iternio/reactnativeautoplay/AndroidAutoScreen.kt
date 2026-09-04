@@ -114,6 +114,11 @@ class AndroidAutoScreen(
         }
     }
 
+    fun updateTemplate(template: Template) {
+        this.template = template
+        UiThreadUtil.runOnUiThread { invalidate() }
+    }
+
     override fun onGetTemplate(): Template {
         return template
     }

@@ -81,6 +81,11 @@ class TabTemplate: AutoPlayTemplate, CPTabBarTemplateDelegate {
         config.onPopped?()
     }
 
+    @MainActor
+    func selectTab(index: Int) {
+        template.selectTemplate(at: index)
+    }
+
     private static func parseImage(
         _ image: NitroImage,
         traitCollection: UITraitCollection

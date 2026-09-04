@@ -9,6 +9,7 @@ import androidx.car.app.model.TabTemplate as CarTabTemplate
 import androidx.car.app.model.Template
 import com.margelo.nitro.swe.iternio.reactnativeautoplay.NitroAction
 import com.margelo.nitro.swe.iternio.reactnativeautoplay.TabTemplateConfig
+import com.margelo.nitro.swe.iternio.reactnativeautoplay.AndroidAutoScreen
 
 @RequiresCarApi(6)
 class TabTemplate(context: CarContext, config: TabTemplateConfig) :
@@ -29,7 +30,7 @@ class TabTemplate(context: CarContext, config: TabTemplateConfig) :
             override fun onTabSelected(selectedTemplateId: String) {
                 activeTemplateId = selectedTemplateId
                 config.onTabSelected?.invoke(selectedTemplateId)
-                applyConfigUpdate()
+                AndroidAutoScreen.getScreen(templateId)?.updateTemplate(parse())
             }
         }
 
@@ -70,5 +71,11 @@ class TabTemplate(context: CarContext, config: TabTemplateConfig) :
     override fun onPopped() {
         config.onPopped?.invoke()
         templates.remove(templateId)
+    }
+
+    fun selectTab(index: Int) {
+        activeTemplateId = config.tabs[index].templateId
+        AndroidAutoScreen.getScreen(templateId)?.updateTemplate(parse())
+        config.onTabSelected?.invoke(activeTemplateId)
     }
 }

@@ -36,6 +36,7 @@ namespace margelo::nitro::swe::iternio::reactnativeautoplay { struct NitroColor;
 #include "RemoteImage.hpp"
 #include <variant>
 #include "NitroColor.hpp"
+#include <NitroModules/Promise.hpp>
 
 #include "ReactNativeAutoPlay-Swift-Cxx-Umbrella.hpp"
 
@@ -92,6 +93,14 @@ namespace margelo::nitro::swe::iternio::reactnativeautoplay {
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
+    }
+    inline std::shared_ptr<Promise<void>> selectTab(const std::string& templateId, double index) override {
+      auto __result = _swiftPart.selectTab(templateId, std::forward<decltype(index)>(index));
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
     }
 
   private:
